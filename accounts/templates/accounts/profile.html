@@ -1,0 +1,43 @@
+{% extends "mainapp/base.html" %} {% block content %}
+
+<div class="container">
+  <div class="row mx-1 mx-md-5 mx-lg-5">
+    <div class="card card-profile px-1 px-md-5 px-lg-5 my-5 mx-auto">
+      <div class="card-body">
+        <h5 class="card-title text-center">プロフィール</h5>
+        <table class="column_table">
+          <tbody>
+            <tr>
+              <th class="header">プロフィール画像</th>
+              <td class="data">
+              {% if user_data.image %}
+                <img src="{{ user_data.image.url }}" alt="" width="100px" />
+              {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th>名前</th>
+              <td class="data">{{ user_data.first_name }} {{ user_data.last_name }}</td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td class="data">{{ user_data.email }}</td>
+            </tr>
+            <tr>
+              <th>自己紹介</th>
+              <td class="data">{{ user_data.department | linebreaks }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% if user.is_authenticated %}
+        <div class="button mx-auto">
+          <a class="btn btn-lg btn-warning btn-block" href="{% url 'profile_edit' %}"
+            >編集する</a
+          >
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

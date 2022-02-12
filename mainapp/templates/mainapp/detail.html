@@ -1,0 +1,325 @@
+{% extends 'mainapp/base.html' %} 
+{% load static %} 
+{% load basetemp %} 
+
+{% block head %}
+{% for player in player %}
+<title>【PS版 e-football2022】{{ player.player_name }}</title>
+{% endfor %}
+{% endblock head %} 
+
+
+{% block header %}
+{% for player in player %}
+<title>【PS版 e-football2022】{{ player.player_name }}</title>
+<li class="nav-item">
+  <a class="nav-link link-item" href="{% url 'editform' player.id %}">
+  <i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+    EDIT
+  </a>
+</li>
+{% endfor %}
+{% endblock header %} 
+
+{% block content %}
+<div class="container">
+ <div class="row">
+  <div class="col-lg-8">
+  
+      <div class="col-xs-8">
+        <div class="card card-edit my-5 mx-auto">
+          {% for player in player %}
+          <div class="card card-header text-center h4 py-md-3">
+            {{ player.player_name }}の選手情報
+          </div>
+          <div class="card-body">
+            <ul class="player_info">
+                <li class="clearfix">
+                  {% if player.player_image %}
+                  <img src="{{player.player_image.url}}" alt="選手画像" width="70px" />
+                  {% endif %}
+                  <span>{{ player.player_name }}</span>
+                </li>
+                <li>
+                  リリース日</br>
+                  <span>{{ player.date|date:"Y年Md日" }}</span>
+                </li>
+                <li>
+                  初期 / 最大</br>
+                  <span>{{ player.initial }} / {{ player.maximum }}</span>
+                </li>
+                <li>
+                  レアリティ</br>
+                  <span>{{ player.rarity_group }}</span>
+                </li>
+                <li>
+                  国名</br>
+                  <span>{{ player.country }}</span>
+                </li>
+                <li>
+                  所属リーグ</br>
+                  <span>{{ player.league_group }}</span>
+                </li>
+                <li>
+                  所属クラブ</br>
+                  <span>{{ player.club_group }}</span>
+                </li>
+                <li>
+                  身長 / 年齢</br>
+                  <span>{{ player.height }}cm / {{ player.age }}歳</span>
+                </li>
+                <li>
+                  利き足</br>
+                  <span>{{ player.dominant_foot }}</span>
+                </li>
+                <li>
+                  ポジション</br>
+                  <span>{{ player.position_group }}</span>
+                </li>
+                <li>
+                  プレイスタイル</br>
+                  <span>{{ player.playstyle_group }}</span>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>  
+    
+      <div class="col-xs-8">
+      <div class="card card-edit">
+        <div class="card card-header alert-info text-center h4 py-md-3">
+          適正ポジション
+        </div>
+        <div class="card-body">
+          <td class="data">
+          {% for formation in formation %}
+          {% if formation.formation_images %}
+              <img
+                src="{{ formation.formation_images.url }}"
+                alt="適正ポジション"
+                class="rounded mx-auto d-block"
+              />
+              {% endif %}
+            {% endfor %}
+          </td>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-xs-8">
+        <div class="card card-edit my-5">
+          <div class="card card-header alert-info text-center h4 py-md-3">
+          選手能力
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">最大</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ability in ability %}
+                <tr>
+                  <th scope="row">オフェンスセンス</th>
+                  <td>
+                    <span class="{{ ability.offense_sense|of_df_fig_css }}">{{ ability.offense_sense }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ボールコントロール</th>
+                  <td>
+                    <span class="{{ ability.ball_control|of_df_fig_css }}">{{ ability.ball_control }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ドリブル</th>
+                  <td>
+                    <span class="{{ ability.dribble|of_df_fig_css }}">{{ ability.dribble }}</span> 
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ボールキープ</th>
+                  <td>
+                    <span class="{{ ability.ball_keep|of_df_fig_css }}">{{ ability.ball_keep }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">グランダーパス</th>
+                  <td>
+                    <span class="{{ ability.grander_pass|of_df_fig_css }}">{{ ability.grander_pass }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">フライパス</th>
+                  <td>
+                    <span class="{{ ability.fly_pass|of_df_fig_css }}">{{ ability.fly_pass }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">決定力</th>
+                  <td>
+                    <span class="{{ ability.determining_power|of_df_fig_css }}">{{ ability.determining_power }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ヘディング</th>
+                  <td>
+                    <span class="{{ ability.heading|of_df_fig_css }}">{{ ability.heading }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">プレースキック</th>
+                  <td>
+                    <span class="{{ ability.place_kick|of_df_fig_css }}">{{ ability.place_kick }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">カーブ</th>
+                  <td>
+                    <span class="{{ ability.curve|of_df_fig_css }}">{{ ability.curve }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">スピード</th>
+                  <td>
+                  <span class="{{ ability.speed|of_df_fig_css }}">{{ ability.speed }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">瞬発力</th>
+                  <td>
+                    <span class="{{ ability.instantaneous_power|of_df_fig_css }}">{{ ability.instantaneous_power }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">キック力</th>
+                  <td>
+                    <span class="{{ ability.kick_power|of_df_fig_css }}">{{ ability.kick_power }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ジャンプ</th>
+                  <td>
+                  <span class="{{ ability.jumping|of_df_fig_css }}">{{ ability.jumping }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">フィジカルコンタクト</th>
+                  <td>
+                    <span class="{{ ability.physical_contact|of_df_fig_css }}">{{ ability.physical_contact }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ボディコントロール</th>
+                  <td>
+                    <span class="{{ ability.body_control|of_df_fig_css }}">{{ ability.body_control }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">体力</th>
+                  <td>
+                    <span class="{{ ability.physical_fitness|of_df_fig_css }}">{{ ability.physical_fitness }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ディフェンスセンス</th>
+                  <td>
+                    <span class="{{ ability.defense_sense|of_df_fig_css }}">{{ ability.defense_sense }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ボール奪取</th>
+                  <td>
+                    <span class="{{ ability.take_the_ball|of_df_fig_css }}">{{ ability.take_the_ball }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">アグレッシブネス</th>
+                  <td>
+                    <span class="{{ ability.aggressiveness|of_df_fig_css }}">{{ ability.aggressiveness }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">GKセンス</th>
+                  <td>
+                  <span class="{{ ability.gksense|of_df_fig_css }}">{{ ability.gksense }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">キャッチング</th>
+                  <td>
+                  <span class="{{ ability.catching|of_df_fig_css }}">{{ ability.catching }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">クリアリング</th>
+                  <td>
+                  <span class="{{ ability.clearing|of_df_fig_css }}">{{ ability.clearing }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">コブラシング</th>
+                  <td>
+                    <span class="{{ ability.cobraging|of_df_fig_css }}">{{ ability.cobraging }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ディフレクティング</th>
+                  <td>
+                    <span class="{{ ability.deflectiveing|of_df_fig_css }}">{{ ability.deflectiveing }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">逆足頻度</th>
+                  <td>
+                    <span class="{{ ability.reverse_foot_frequency|reverse_css }}">{{ ability.reverse_foot_frequency }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">逆足精度</th>
+                  <td>
+                    <span class="{{ ability.reverse_foot_accuracy|reverse_css }}">{{ ability.reverse_foot_accuracy }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">コンディション安定度</th>
+                  <td>
+                    <span class="{{ ability.condition_stability|condi_css }}">{{ ability.condition_stability }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ケガ耐性</th>
+                  <td>
+                    <span class="{{ ability.injury_resistance|reverse_css }}">{{ ability.injury_resistance }}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-8">
+        <div class="card card-edit my-5 mx-auto">
+          <div class="card card-header alert-info text-center h4 py-md-3">
+          スキル一覧
+          </div>
+          <div class="card-body">
+              <ul class="clearfix" id="player_info2">
+                {% for n in player.skill.all %}
+                <li><strong>{{ n.player_skill }}</strong></li>
+                {% endfor %}
+          {% endfor %}
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% include 'mainapp/sidebar.html' %}
+  </div>
+</div>
+{% endblock content %}
+

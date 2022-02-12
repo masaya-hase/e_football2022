@@ -1,0 +1,32 @@
+<div class="col-lg-4">
+  <div class="category_css">
+    <div class="list-group list-group-flush my-5 mx-xl-4">
+      <strong class="d-block h8 text-center">RarityCategory</strong>
+      {% for rarity in rarity_data %}
+      <a href="{% url 'rarity' rarity %}" class="list-group-item text-lg-left mx-xl-3 bg-transparent" >
+        {{ rarity.rarity }}
+      </a>
+      {% endfor %}
+    </div>
+    <div class="list-group list-group-flush mx-xl-4">
+      <strong class="d-block h8 text-center mb-2">LeagueCategory</strong>
+      {% for league in league_data %}
+      <a href="{% url 'league' league %}" class="list-group-item text-lg-left mx-xl-3 bg-transparent" >
+        {{ league.leaguename }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+  {% comment %} <div class="list-group list-group-flush my-5 mx-xl-4">
+    <strong class="d-block h8 text-center">Player検索</strong>
+    <form method="get" action="{% url 'search' %}" class="input-group">
+      <input type="text" class="form-control" name="keyword" placeholder="選手名検索" />
+      <button type="submit" class="btn btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" >
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div> {% endcomment %}

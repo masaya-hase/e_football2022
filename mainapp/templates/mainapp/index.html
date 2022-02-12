@@ -1,0 +1,73 @@
+{% extends "mainapp/base.html" %} 
+{% load static %}
+
+{% block head %}
+ <title>e-foot | PS版 e-football2022</title>
+{% endblock head %}
+
+{% block content %}
+<body class="body-back">
+  <div class="container mt-4">
+      <div class="row">
+      <section class="hero-home pt-lg-5">
+        <div class="container py-5 text-white z-index-20">
+          <div class="row justify-content-center">
+            <div class="col-xl-10">
+              <div class="text-center text-lg-start">
+                <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">Player Infomation</p>
+                <h1 class="display-3 fw-bold text-shadow">e-football2022 Player Site</h1>
+              </div>
+              <div class="search-bar mt-5 p-3 p-lg-1 ps-lg-4">
+                <form action="{% url 'search' %}" method="GET" novalidate="novalidate">
+                  <div class="row">
+                    <div class="col-lg-6 d-flex align-items-center form-group">
+                      <input class="form-control border-0 shadow-0" type="search" name="freeword" placeholder="選手名を入力してくだい">
+                    </div>
+                    <div class="col-lg-4 d-flex align-items-center form-group no-divider">
+                      <select name="select" class="form-control form-select" aria-label="Default select example">
+                        <option class="optioncss" value="none">Category</option>
+                        {% for item in rarity_data %}
+                        <option value="{{ item.id }}">{{ item.rarity }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="col-lg-2 d-grid">
+                      <button class="btn btn-primary rounded-pill h-100" type="submit">Search </button>
+                    </div>
+                  </div>
+                  {% csrf_token %}
+                </form>
+              </div>
+            </div>
+        </div>
+      </section>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-center text-lg-start">
+            <h4 class="display-6 fw-bold text-shadow text-center pb-sm-5 pb-xl-5" style="color: #696969">最新選手情報</h5>
+          </div>
+          <div class="a row justify-content-sm-around">
+            <div class="card cardclass">
+              <a href="{% url 'weekly_trend' %}" class="img_wrap"><img src="{% static 'img/trend.png' %}"  class="card-img-top cardclass" alt="最新トレンド" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の選手情報！</p>
+            </div>
+            <div class="card cardclass">
+              <a href="{% url 'weekly_features' %}" class="img_wrap"><img src="{% static 'img/features.png' %}"  class="card-img-top cardclass" alt="最新フィーチャー" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の選手情報！</p>
+            </div>
+            <div class="card cardclass">
+              <a href="{% url 'weekly_legendary' %}" class="img_wrap"><img src="{% static 'img/legendary.png' %}"  class="card-img-top cardclass" alt="最新レジェンダリー" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の選手情報！</p>
+            </div>
+            <div class="card cardclass">
+              <a href="{% url 'weekly_standard' %}" class="img_wrap"><img src="{% static 'img/standard.png' %}"  class="card-img-top cardclass" alt="最新トレンド" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の追加選手情報！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

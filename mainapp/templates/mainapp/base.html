@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    {% block head %} {% endblock %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap5-dropdown-ml-hack-hover.css' %}">
+  </head>
+
+ <body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+       <a href="/" class="navbar-brand header_font"><img src="{% static 'img/main.png' %}" width="25" height="25">e-foot</a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto text-center">
+          <li class="nav-item">
+            <a class="nav-link link-item" href="/">
+            <i class="bi bi-house" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+            Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link link-item dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-view-list" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+             Category
+            </a>
+              <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="pagesMenu">
+                <div class="dropdown dropend dropdown-hover">
+                  <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Rarity
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-layouts">
+                   {% for rarity in rarity_data %}
+                    <a class="dropdown-item" href="{% url 'rarity' rarity %}">{{ rarity.rarity }}</a>
+                   {% endfor %}
+                  </div>
+                </div>
+                <div class="dropdown dropend dropdown-hover" aria-labelledby="pagesMenu">
+                  <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Position
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-layouts">
+                   {% for position in position_data %}
+                    <a class="dropdown-item" href="{% url 'position' position %}">{{ position.position }}</a>
+                   {% endfor %}
+                  </div>
+                </div>
+                <div class="dropdown dropend dropdown-hover" aria-labelledby="pagesMenu">
+                  <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   League
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-layouts">
+                   {% for league in league_data %}
+                    <a class="dropdown-item" href="{% url 'league' league %}">{{ league.leaguename }}</a>
+                   {% endfor %}
+                  </div>
+                </div>
+              </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-item" href="{% url 'profile' %}">
+            <i class="bi bi-person-circle" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+            Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-item" href="{% url 'contact_form' %}">
+            <i class="bi bi-envelope-fill" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+            Contact
+            </a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link link-item" href="{% url 'account_logout' %}">
+            <i class="bi bi-door-closed" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+            Logout
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-item" href="{% url 'addform' %}">
+            <i class="bi bi-person-plus-fill" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+            Addtion
+            </a>
+          </li>
+          {% block header %} {% endblock %}
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link link-item" href="{% url 'account_login' %}">
+             <i class="bi bi-door-open" style="font-size: 1rem; color: cornflowerblue;"></i></br>
+              Login
+             </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+    
+  <main>
+    {% block content %} {% endblock %}
+  </main>
+
+  <footer class="py-2">
+    <p class="m-0 text-center text-black">Copyright &copy; Django Startup 2022</p>
+  </footer>
+
+    {% block extra_js %} {% endblock %}
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/bootstrap5-dropdown-ml-hack.js' %}"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+ </body>
+</html>

@@ -1,0 +1,131 @@
+{% extends 'mainapp/base.html' %} 
+{% load basetemp %}
+
+{% block head %}
+<title>
+【PS版 e-football2022】追加の最新スタンダード
+</title>
+{% endblock head%} 
+
+{% block header %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+{% endblock header%} 
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    
+    <div class="col-lg-8">
+      <div class="col-xs-8">
+          <h6 class="list_player_header">追加の最新スタンダード選手一覧</h6>
+            <div class="table-responsive">
+            <table id="fav-table" class="table table-hover table-bordered list_table">
+              <thead class="thead-dark">
+                <tr class="table-success">
+                  <th scope="col"></th>
+                  <th scope="col" class="text-nowrap">ポジション</th>
+                  <th scope="col" class="text-nowrap" style="">選手名</th>
+                  <th scope="col" class="text-nowrap">年齢</th>
+                  <th scope="col" class="text-nowrap">初期値</th>
+                  <th scope="col" class="text-nowrap">最大値</th>
+                  <th scope="col" class="text-nowrap">所属リーグ</th>
+                  <th scope="col" class="text-nowrap">所属クラブ</th>
+                  <th scope="col" class="text-nowrap">プレイスタイル</th>
+                  <th scope="col" class="text-nowrap">オフェ</br>ンスセ</br>ンス</th>
+                  <th scope="col" class="text-nowrap">ボール</br>コント</br>ロール</th>
+                  <th scope="col" class="text-nowrap">ドリブ</br>ル</th>
+                  <th scope="col" class="text-nowrap">ボール</br>キープ</th>
+                  <th scope="col" class="text-nowrap">グラン</br>ダーパ</br>ス</th>
+                  <th scope="col" class="text-nowrap">フライ</br>パス</th>
+                  <th scope="col" class="text-nowrap">決定力</th>
+                  <th scope="col" class="text-nowrap">ヘディ</br>ング</th>
+                  <th scope="col" class="text-nowrap">プレー</br>スキッ</br>ク</th>
+                  <th scope="col" class="text-nowrap">カーブ</th>
+                  <th scope="col" class="text-nowrap">スピー</br>ド</th>
+                  <th scope="col" class="text-nowrap">瞬発力</th>
+                  <th scope="col" class="text-nowrap">キック</br>力</th>
+                  <th scope="col" class="text-nowrap">ジャン</br>プ</th>
+                  <th scope="col" class="text-nowrap">フィジ</br>カルコ</br>ンタク</br>ト</th>
+                  <th scope="col" class="text-nowrap">ボディ</br>コント</br>ロール</th>
+                  <th scope="col" class="text-nowrap">体力</th>
+                  <th scope="col" class="text-nowrap">ディフ</br>ェンス</br>センス</th>
+                  <th scope="col" class="text-nowrap">ボール</br>奪取</th>
+                  <th scope="col" class="text-nowrap">アグレ</br>ッシブ</br>ネス</th>
+                  <th scope="col" class="text-nowrap">GKセ</br>ンス</th>
+                  <th scope="col" class="text-nowrap">キャッ</br>チング</th>
+                  <th scope="col" class="text-nowrap">クリア</br>リング</th>
+                  <th scope="col" class="text-nowrap">コブラ</br>シング</th>
+                  <th scope="col" class="text-nowrap">ディフ</br>レクテ</br>ィング</th>
+                  <th scope="col" class="text-nowrap">逆足頻</br>度</th>
+                  <th scope="col" class="text-nowrap">逆足精</br>度</th>
+                  <th scope="col" class="text-nowrap">コンデ</br>ィショ</br>ン安定</br>度</th>
+                  <th scope="col" class="text-nowrap">ケガ耐</br>性</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in page_obj %}
+                <tr>
+                  <td scope="row" class="text-nowrap"><img class="d-block mx-auto" src="{{item.player_image.url}}" width="35" /></td>
+                  <td class="text-nowrap"><span class="{{ item.position_group|stringformat:"s"|list_posi }}">{{ item.position_group }}</span></td>
+                  <td class="text-nowrap"><a href="{% url 'detail' item.pk %}">{{ item.player_name }}</a></td>
+                  <td class="text-nowrap">{{ item.age }}</td>
+                  <td class="text-nowrap"><span class="{{ item.initial|list_css }}">{{ item.initial }}</span></td>
+                  <td class="text-nowrap"><span class="{{ item.maximum|list_css }}">{{ item.maximum }}</span></td>
+                  <td class="text-nowrap">{{ item.league_group }}</td>
+                  <td class="text-nowrap">{{ item.club_group }}</td>
+                  <td class="text-nowrap">{{ item.playstyle_group }}</td>
+                  {% for ability in item.ability_set.all %}
+                  <td class="text-nowrap"><span class="{{ ability.offense_sense|list_css }}">{{ ability.offense_sense }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.ball_control|list_css }}">{{ ability.ball_control }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.dribble|list_css }}">{{ ability.dribble }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.ball_keep|list_css }}">{{ ability.ball_keep }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.grander_pass|list_css }}">{{ ability.grander_pass }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.fly_pass|list_css }}">{{ ability.fly_pass }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.determining_power|list_css }}">{{ ability.determining_power }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.heading|list_css }}">{{ ability.heading }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.place_kick|list_css }}">{{ ability.place_kick }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.curve|list_css }}">{{ ability.curve }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.speed|list_css }}">{{ ability.speed }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.instantaneous_power|list_css }}">{{ ability.instantaneous_power }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.kick_power|list_css }}">{{ ability.kick_power }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.jumping|list_css }}">{{ ability.jumping }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.physical_contact|list_css }}">{{ ability.physical_contact }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.body_control|list_css }}">{{ ability.body_control }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.physical_fitness|list_css }}">{{ ability.physical_fitness }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.defense_sense|list_css }}">{{ ability.defense_sense }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.take_the_ball|list_css }}">{{ ability.take_the_ball }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.aggressiveness|list_css }}">{{ ability.aggressiveness }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.gksense|list_css }}">{{ ability.gksense }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.catching|list_css }}">{{ ability.catching }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.clearing|list_css }}">{{ ability.clearing }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.cobraging|list_css }}">{{ ability.cobraging }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.deflectiveing|list_css }}">{{ ability.deflectiveing }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.reverse_foot_frequency|list_reverse_css }}">{{ ability.reverse_foot_frequency }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.reverse_foot_accuracy|list_reverse_css }}">{{ ability.reverse_foot_accuracy }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.condition_stability|list_condi_css }}">{{ ability.condition_stability }}</td>
+                  <td class="text-nowrap"><span class="{{ ability.injury_resistance|list_reverse_css }}">{{ ability.injury_resistance }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            </div>
+      </div>
+        {% include 'mainapp/pagination.html' %}
+    </div>  
+  {% include 'mainapp/sidebar.html' %}
+    
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+
+<script>
+$(document).ready(function() {
+    $('#fav-table').tablesorter();
+});
+</script>
+
+{% endblock extra_js %}

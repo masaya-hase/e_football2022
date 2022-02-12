@@ -1,0 +1,295 @@
+{% extends "mainapp/base.html" %} 
+
+{% block header %}
+ <title>【PS版e-football2022】選手情報登録</title>
+{% endblock header %}
+
+
+{% block content %} 
+<div class="container">
+<div class="row mx-1 mx-md-5 mx-lg-5">
+  <div class="card card-edit my-5 mx-auto">
+    <div class="card-body">
+      <form method="post" action="{% url 'addform' %}" enctype="multipart/form-data">
+        <h5 class="card-title text-center">選手登録</h5>
+        {% csrf_token %}
+        <table class="profile_table mb-4 form-image">
+          <tbody>
+            <tr>
+              <th class="header">選手画像</th>
+              <td class="data form_wrap form_wrap-2">{{ form.player_image }}</td>
+            </tr>
+            <tr>
+              <th class="header">リリース日</th>
+              <td class="data form_wrap form_wrap-2 d-flex">{{ form.date }}</td>
+            </tr>
+            <tr>
+              <th class="header">選手名</th>
+              <td class="data form_wrap form_wrap-2">{{ form.player_name }}</td>
+            </tr>
+            <tr>
+              <th class="header">初期能力/最大能力</th>
+              <td class="data form_wrap form_wrap-2">
+                <div class="row">
+                  <div class="col">{{ form.initial }}</div>
+                  <div class="col">{{ form.maximum }}</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="header">最大レベル</th>
+              <td class="data form_wrap form_wrap-2">{{ form.level }}</td>
+            </tr>
+            <tr>
+              <th class="header">レアリティ</th>
+              <td class="data form_wrap form_wrap-2">{{ form.rarity_group }}</td>
+            </tr>
+            <tr>
+              <th class="header">ポジション</th>
+              <td class="data form_wrap form_wrap-2">{{ form.position_group }}</td>
+            </tr>
+            <tr>
+              <th class="header">所属リーグ</th>
+              <td class="data form_wrap form_wrap-2">{{ form.league_group }}</td>
+            </tr>
+            <tr>
+              <th class="header">所属クラブ</th>
+              <td class="data form_wrap form_wrap-2">{{ form.club_group }}</td>
+            </tr>
+            <tr>
+              <th class="header">国名</th>
+              <td class="data form_wrap form_wrap-2">{{ form.country }}</td>
+            </tr>
+            <tr>
+              <th class="header">年齢</th>
+              <td class="data form_wrap form_wrap-2">{{ form.age }}</td>
+            </tr>
+            <tr>
+              <th class="header">身長</th>
+              <td class="data form_wrap form_wrap-2">{{ form.height }}</td>
+            </tr>
+            <tr>
+              <th class="header">利き足</th>
+              <td class="data form_wrap form_wrap-2">{{ form.dominant_foot }}</td>
+            </tr>
+            <tr>
+              <th class="header">プレースタイル</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ form.playstyle_group }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {{ ability_formset.management_form }}
+        {% for ability_form in ability_formset %}
+        <h5 class="card-title text-center">能力登録</h5>
+        <table class="profile_table mb-4">
+          <tbody>
+            <tr>
+              <th class="header">オフェンスセンス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.offense_sense }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ボールコントロール</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.ball_control }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ドリブル</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.dribble }}
+              </td>
+            </tr>
+              <th class="header">ボールキープ</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.ball_keep }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">グランダーパス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.grander_pass }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">フライパス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.fly_pass }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">決定力</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.determining_power }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ヘディング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.heading }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">プレースキック</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.place_kick }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">カーブ</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.curve }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">スピード</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.speed }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">瞬発力</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.instantaneous_power }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">キック力</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.kick_power }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ジャンプ力</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.jumping }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">フィジカルコンタクト</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.physical_contact }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ボディコントロール</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.body_control }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">体力</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.physical_fitness }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ディフェンスセンス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.defense_sense }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ボール奪取</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.take_the_ball }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">アグレッシブネス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.aggressiveness }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">GKセンス</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.gksense }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">キャッチング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.catching }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">クリアリング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.clearing }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">コブラシング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.cobraging }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ディフレクティング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.deflectiveing }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">逆足頻度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.reverse_foot_frequency }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">逆足精度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.reverse_foot_accuracy }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">コンディション安定度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.condition_stability }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ケガ耐性</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.injury_resistance }}
+                {{ ability_form.id }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {% endfor %}
+        <h5 class="card-title text-center">フォーメーション登録</h5>
+        <table class="profile_table mb-4 form-image">
+          <tbody>
+          {{ formation_formset.management_form }}
+          {% for formation_form in formation_formset %}
+            <tr>
+              <th class="header">{{ formation_form.id }}</th>
+              <td class="data form_wrap form_wrap-2">{{ formation_form.formation_images }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <h5 class="card-title text-center">スキル登録</h5>
+        <table class="profile_table mb-4 skill_info">
+          <tbody>
+            {{ skill_formset.management_form }}
+            {% for skill_form in skill_formset %}
+            <tr>
+              <th class="header">{{ skill_form.id }}</th>
+              <td class="data">{{ skill_form.skill }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">登録する</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content %}
