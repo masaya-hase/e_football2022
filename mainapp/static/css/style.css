@@ -175,7 +175,8 @@ flex-grow: 0;
     flex-wrap: wrap;
     padding-left: 0;
     padding-right: 0;
-  } :nth-of-type(n+3){
+  }
+  .cardclass:nth-child(n+3){
     padding-top: 20px;
   }
   .card-text{
@@ -194,7 +195,8 @@ flex-grow: 0;
     flex-wrap: wrap;
     padding-left: 0;
     padding-right: 0;
-  }:nth-of-type(n+3){
+  }
+  .cardclass:nth-child(n+3){
     padding-top: 20px;
   }
   .card-text{
@@ -217,9 +219,13 @@ flex-grow: 0;
     flex-wrap: wrap;
     padding-left: 0;
     padding-right: 0;
-  }:nth-of-type(n+2){
+  }
+  .cardclass:nth-child(n+2){
     padding-top: 20px;
   }
+  /* }:nth-of-type(n+2){
+    padding-top: 20px;
+  } */
   .card-text{
     width: auto;
     padding-top: 0%;
