@@ -93,9 +93,10 @@ WSGI_APPLICATION = 'e_football2022.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-        )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
@@ -136,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -152,20 +153,23 @@ ACCOUNT_USERNAME_REQUIRED = False
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-import logging
+# STATIC_ROOT = '/usr/share/nginx/html/static'
+# MEDIA_ROOT = '/usr/share/nginx/html/media'
 
-# For debugging 
-if DEBUG:
-    # will output to your console
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = '%(asctime)s %(levelname)s %(message)s',
-    )
-else:
-    # will output to logging file
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = '%(asctime)s %(levelname)s %(message)s',
-        filename = '/my_log_file.log',
-        filemode = 'a'
-    )
+# import logging
+
+# # For debugging 
+# if DEBUG:
+#     # will output to your console
+#     logging.basicConfig(
+#         level = logging.DEBUG,
+#         format = '%(asctime)s %(levelname)s %(message)s',
+#     )
+# else:
+#     # will output to logging file
+#     logging.basicConfig(
+#         level = logging.DEBUG,
+#         format = '%(asctime)s %(levelname)s %(message)s',
+#         filename = '/my_log_file.log',
+#         filemode = 'a'
+#     )
