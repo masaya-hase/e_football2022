@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Player, Formation, Ability, RarityCategory, Skill, PositionCategory, LeagueCategory
-from .forms import PlayerCreateForm, AbilityFormSet, SkillInlineFormSet, FormationFormSet, SkillInlineAddFormSet, AbilityAddFormSet, FormationAddFormSet, ContactForm
+from .models import Player, Formation, Ability, RarityCategory, Skill, PositionCategory, LeagueCategory, PlayerFeature, PlayerCorrection
+from .forms import PlayerCreateForm, AbilityFormSet, SkillInlineFormSet, FormationFormSet, SkillInlineAddFormSet, AbilityAddFormSet, FormationAddFormSet, ContactForm, PlayerFeatureFormSet, PlayerCorrectionFormSet, PlayerFeatureAddFormSet, PlayerCorrectionAddFormSet
 from django.views import generic
 import logging
 from django.db.models import Q
@@ -19,7 +19,9 @@ def detailview(request, pk):
     player = Player.objects.filter(pk=pk)
     ability = Ability.objects.filter(pk=pk)
     formation = Formation.objects.filter(pk=pk)
-    return render(request, 'mainapp/detail.html', {'player': player, 'ability': ability, 'formation': formation})
+    feature = PlayerFeature.objects.filter(pk=pk)
+    correction = PlayerCorrection.objects.filter(pk=pk)
+    return render(request, 'mainapp/detail.html', {'player': player, 'ability': ability, 'formation': formation, 'feature': feature, 'correction': correction})
 
 def addformview(request):
     form = PlayerCreateForm(request.POST or None, files=request.FILES)
@@ -31,11 +33,15 @@ def addformview(request):
         ability_formset = AbilityAddFormSet(request.POST, instance=player)
         formation_formset = FormationAddFormSet(
             request.POST, files=request.FILES, instance=player)  # 増えた
-        if skill_formset.is_valid() and ability_formset.is_valid() and formation_formset.is_valid():  # image_formset.is_valid()が増えた
+        feature_formset = PlayerFeatureAddFormSet(request.POST, instance=player)
+        correction_formset = PlayerCorrectionAddFormSet(request.POST, instance=player)
+        if skill_formset.is_valid() and ability_formset.is_valid() and formation_formset.is_valid() and feature_formset.is_valid() and correction_formset.is_valid():  # image_formset.is_valid()が増えた
             player.save()
             skill_formset.save()
             ability_formset.save()
             formation_formset.save()  # 増えた
+            feature_formset.save()  # 増えた
+            correction_formset.save()  # 増えた
             return redirect('index')
 
         # エラーメッセージつきのformsetをテンプレートへ渡すため、contextに格納
@@ -43,6 +49,8 @@ def addformview(request):
             context['skill_formset'] = skill_formset
             context['ability_formset'] = ability_formset
             context['formation_formset'] = formation_formset  # 増えた
+            context['feature_formset'] = feature_formset  # 増えた
+            context['correction_formset'] = correction_formset  # 増えた
 
     # GETのとき
     else:
@@ -50,6 +58,8 @@ def addformview(request):
         context['skill_formset'] = SkillInlineAddFormSet()
         context['ability_formset'] = AbilityAddFormSet()
         context['formation_formset'] = FormationAddFormSet()  # 増えた
+        context['feature_formset'] = PlayerFeatureAddFormSet()  # 増えた
+        context['correction_formset'] = PlayerCorrectionAddFormSet()  # 増えた
 
     return render(request, 'mainapp/addform.html', context)
 
@@ -62,11 +72,15 @@ def editformview(request, pk):
     abilityformset = AbilityFormSet(request.POST or None, instance=player)
     formationformset = FormationFormSet(
         request.POST or None, files=request.FILES or None, instance=player)
-    if request.method == 'POST' and form.is_valid() and skillformset.is_valid() and abilityformset.is_valid() and formationformset.is_valid():
+    featureformset = PlayerFeatureFormSet(request.POST or None, instance=player)
+    correctionformset = PlayerCorrectionFormSet(request.POST or None, instance=player)
+    if request.method == 'POST' and form.is_valid() and skillformset.is_valid() and abilityformset.is_valid() and formationformset.is_valid() and featureformset.is_valid() and correctionformset.is_valid():
         form.save()
         skillformset.save()
         abilityformset.save()
         formationformset.save()
+        featureformset.save()
+        correctionformset.save()
         return redirect('index')
         
     context = {
@@ -75,6 +89,8 @@ def editformview(request, pk):
         'abilityformset': abilityformset,
         'pk': pk,
         'formationformset': formationformset,
+        'featureformset': featureformset,
+        'correctionformset': correctionformset,
     }
 
     return render(request, 'mainapp/editform.html', context)
@@ -113,9 +129,6 @@ class PositionCategoryView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['position_key'] = self.kwargs['position']
         return context
-
-class AbilityListView(generic.ListView):
-    model = Ability
 
 
 class LeagueCategoryView(generic.ListView):
@@ -222,9 +235,6 @@ def weekly_legenddary_list(request):
 
     date_list = Player.objects.filter(rarity_group=1).values_list('date', flat=True).reverse().first()
     player_list = Player.objects.filter(rarity_group=1 , date=date_list)
-
-    print(date_list)
-
 
     paginator = Paginator(player_list, 10)
     page_number = request.GET.get('page')

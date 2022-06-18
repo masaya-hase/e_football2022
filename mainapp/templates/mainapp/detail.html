@@ -41,20 +41,28 @@
                   <span>{{ player.player_name }}</span>
                 </li>
                 <li>
-                  リリース日</br>
+                  搭載日</br>
                   <span>{{ player.date|date:"Y年Md日" }}</span>
                 </li>
                 <li>
-                  初期 / 最大</br>
-                  <span>{{ player.initial }} / {{ player.maximum }}</span>
+                  ポジション</br>
+                  <span>{{ player.position_group }}</span>
                 </li>
                 <li>
                   レアリティ</br>
                   <span>{{ player.rarity_group }}</span>
                 </li>
                 <li>
-                  国名</br>
-                  <span>{{ player.country }}</span>
+                  グレード</br>
+                  <span>{{ player.grade_group }}</span>
+                </li>
+                <li>
+                  初期総合値</br>
+                  <span>{{ player.initial }}</span>
+                </li>
+                <li>
+                  最大レベル</br>
+                  <span>{{ player.level }}</span>
                 </li>
                 <li>
                   所属リーグ</br>
@@ -65,16 +73,16 @@
                   <span>{{ player.club_group }}</span>
                 </li>
                 <li>
+                  国名</br>
+                  <span>{{ player.country }}</span>
+                </li>
+                <li>
                   身長 / 年齢</br>
                   <span>{{ player.height }}cm / {{ player.age }}歳</span>
                 </li>
                 <li>
                   利き足</br>
                   <span>{{ player.dominant_foot }}</span>
-                </li>
-                <li>
-                  ポジション</br>
-                  <span>{{ player.position_group }}</span>
                 </li>
                 <li>
                   プレイスタイル</br>
@@ -271,28 +279,90 @@
                     <span class="{{ ability.deflectiveing|of_df_fig_css }}">{{ ability.deflectiveing }}</span>
                   </td>
                 </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-8">
+        <div class="card card-edit my-5">
+          <div class="card card-header alert-info text-center h4 py-md-3">
+          選手特徴
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <tbody>
+                {% for feature in feature %}
                 <tr>
                   <th scope="row">逆足頻度</th>
                   <td>
-                    <span class="{{ ability.reverse_foot_frequency|reverse_css }}">{{ ability.reverse_foot_frequency }}</span>
+                    <span>{{ feature.frequency_choice }}</span>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">逆足精度</th>
                   <td>
-                    <span class="{{ ability.reverse_foot_accuracy|reverse_css }}">{{ ability.reverse_foot_accuracy }}</span>
+                    <span>{{ feature.accuracy_choice }}</span>
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">コンディション安定度</th>
+                  <th scope="row">コンディションの波</th>
                   <td>
-                    <span class="{{ ability.condition_stability|condi_css }}">{{ ability.condition_stability }}</span>
+                    <span>{{ feature.condition_choice }}</span> 
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">ケガ耐性</th>
+                  <th scope="row">怪我耐性</th>
                   <td>
-                    <span class="{{ ability.injury_resistance|reverse_css }}">{{ ability.injury_resistance }}</span>
+                    <span>{{ feature.injury_resistance_choice }}</span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-8">
+        <div class="card card-edit my-5">
+          <div class="card card-header alert-info text-center h4 py-md-3">
+          プレイヤー補正
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <tbody>
+                {% for correction in correction %}
+                <tr>
+                  <th scope="row">ポジション</th>
+                  <td>
+                    <span>{{ correction.position_correction }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ショートカウンター</th>
+                  <td>
+                    <span>{{ correction.short_counter_correction }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ロングカウンター</th>
+                  <td>
+                    <span>{{ correction.long_counter_correction }}</span> 
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">サイドアタック</th>
+                  <td>
+                    <span>{{ correction.side_attack_correction }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">ロングボール</th>
+                  <td>
+                    <span>{{ correction.long_ball_correction }}</span>
                   </td>
                 </tr>
                 {% endfor %}

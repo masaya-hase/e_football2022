@@ -37,10 +37,33 @@ class ClubCategory(models.Model):
     def __str__(self):
             return self.clubname
 
+class ReverseCategory(models.Model):
+    reverse_level = models.CharField('逆足レベル',max_length=100, blank=True, null=True)
+
+    def __str__(self):
+            return self.reverse_level
+
+class ConditionCategory(models.Model):
+    condition_level = models.CharField('コンディションレベル',max_length=100, blank=True, null=True)
+
+    def __str__(self):
+            return self.condition_level
+
+class InjuryCategory(models.Model):
+    injury_resistance_level = models.CharField('怪我耐性レベル',max_length=100, blank=True, null=True)
+
+    def __str__(self):
+            return self.injury_resistance_level
+
+class GradeCategory(models.Model):
+    grade_level = models.CharField('グレードレベル',max_length=100, blank=True, null=True)
+
+    def __str__(self):
+            return self.grade_level
+
 class Player(models.Model):
     date = models.DateField('リリース日',default=datetime.now)
     initial = models.IntegerField('初期総合値', blank=True, null=True)
-    maximum = models.IntegerField('最大総合値', blank=True, null=True)
     level = models.IntegerField('最大レベル', blank=True, null=True)
     player_name = models.CharField('選手名', max_length=50, blank=True, null=True)
     country = models.CharField('国名', max_length=30, blank=True, null=True)
@@ -53,6 +76,7 @@ class Player(models.Model):
     league_group = models.ForeignKey(LeagueCategory, verbose_name='リーググループ' ,on_delete=models.PROTECT, null=True)
     club_group = models.ForeignKey(ClubCategory,verbose_name='クラブグループ',on_delete=models.PROTECT, null=True)
     playstyle_group = models.ForeignKey(PlayStyleCategory, verbose_name='プレースタイルグループ' ,on_delete=models.PROTECT, null=True)
+    grade_group = models.ForeignKey(GradeCategory, verbose_name='グレードグループ' ,on_delete=models.PROTECT, null=True)
     skill = models.ManyToManyField(Skill, verbose_name='スキル', blank=True)
 
     def __str__(self):
@@ -90,10 +114,6 @@ class Ability(models.Model):
     clearing = models.IntegerField('クリアリング', blank=True, null=True)
     cobraging = models.IntegerField('コブラシング', blank=True, null=True)
     deflectiveing = models.IntegerField('ディフレクティング', blank=True, null=True)
-    reverse_foot_frequency = models.IntegerField('逆足頻度', blank=True, null=True)
-    reverse_foot_accuracy = models.IntegerField('逆足精度', blank=True, null=True)
-    condition_stability = models.IntegerField('コンディション安定度', blank=True, null=True)
-    injury_resistance = models.IntegerField('ケガ耐性', blank=True, null=True)
 
 class Formation(models.Model):
     player = models.ForeignKey(
@@ -103,4 +123,25 @@ class Formation(models.Model):
         )
     formation_images = models.ImageField(upload_to='images', verbose_name='フォーメーション画像', null=True, blank=True)
 
+class PlayerFeature(models.Model):
+    player = models.ForeignKey(
+        Player, verbose_name='紐づき選手',
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+        )
+    frequency_choice = models.ForeignKey(ReverseCategory, verbose_name='逆足頻度' ,on_delete=models.PROTECT, null=True, related_name="frequency_item")
+    accuracy_choice  = models.ForeignKey(ReverseCategory, verbose_name='逆足精度' ,on_delete=models.PROTECT, null=True, related_name="accuracy_item")
+    condition_choice = models.ForeignKey(ConditionCategory, verbose_name='コンディションの波' ,on_delete=models.PROTECT, null=True)
+    injury_resistance_choice = models.ForeignKey(InjuryCategory, verbose_name='怪我耐性' ,on_delete=models.PROTECT, null=True)
 
+class PlayerCorrection(models.Model):
+    player = models.ForeignKey(
+        Player, verbose_name='紐づき選手',
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+        )
+    position_correction = models.IntegerField('ポジション', blank=True, null=True)
+    short_counter_correction = models.IntegerField('ショートカウンター', blank=True, null=True)
+    long_counter_correction = models.IntegerField('ロングカウンター', blank=True, null=True)
+    side_attack_correction = models.IntegerField('サイドアタック', blank=True, null=True)
+    long_ball_correction = models.IntegerField('ロングボール', blank=True, null=True)

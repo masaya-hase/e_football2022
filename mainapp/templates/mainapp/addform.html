@@ -17,36 +17,35 @@
           <tbody>
             <tr>
               <th class="header">選手画像</th>
-              <td class="data form_wrap form_wrap-2">{{ form.player_image }}</td>
-            </tr>
-            <tr>
-              <th class="header">リリース日</th>
-              <td class="data form_wrap form_wrap-2 d-flex">{{ form.date }}</td>
+              <td class="data">{{ form.player_image }}</td>
             </tr>
             <tr>
               <th class="header">選手名</th>
               <td class="data form_wrap form_wrap-2">{{ form.player_name }}</td>
             </tr>
             <tr>
-              <th class="header">初期能力/最大能力</th>
-              <td class="data form_wrap form_wrap-2">
-                <div class="row">
-                  <div class="col">{{ form.initial }}</div>
-                  <div class="col">{{ form.maximum }}</div>
-                </div>
-              </td>
+              <th class="header">搭載日</th>
+              <td class="data form_wrap form_wrap-2 w-50 d-inline-flex ">{{ form.date }}</td>
             </tr>
             <tr>
-              <th class="header">最大レベル</th>
-              <td class="data form_wrap form_wrap-2">{{ form.level }}</td>
+              <th class="header">ポジション</th>
+              <td class="data form_wrap form_wrap-2">{{ form.position_group }}</td>
             </tr>
             <tr>
               <th class="header">レアリティ</th>
               <td class="data form_wrap form_wrap-2">{{ form.rarity_group }}</td>
             </tr>
             <tr>
-              <th class="header">ポジション</th>
-              <td class="data form_wrap form_wrap-2">{{ form.position_group }}</td>
+              <th class="header">グレード</th>
+              <td class="data form_wrap form_wrap-2">{{ form.grade_group }}</td>
+            </tr>
+            <tr>
+              <th class="header">初期総合値</th>
+              <td class="data form_wrap form_wrap-2">{{ form.level }}</td>
+            </tr>
+            <tr>
+              <th class="header">最大レベル</th>
+              <td class="data form_wrap form_wrap-2">{{ form.level }}</td>
             </tr>
             <tr>
               <th class="header">所属リーグ</th>
@@ -61,12 +60,12 @@
               <td class="data form_wrap form_wrap-2">{{ form.country }}</td>
             </tr>
             <tr>
-              <th class="header">年齢</th>
-              <td class="data form_wrap form_wrap-2">{{ form.age }}</td>
-            </tr>
-            <tr>
               <th class="header">身長</th>
               <td class="data form_wrap form_wrap-2">{{ form.height }}</td>
+            </tr>
+            <tr>
+              <th class="header">年齢</th>
+              <td class="data form_wrap form_wrap-2">{{ form.age }}</td>
             </tr>
             <tr>
               <th class="header">利き足</th>
@@ -80,11 +79,25 @@
             </tr>
           </tbody>
         </table>
-        {{ ability_formset.management_form }}
-        {% for ability_form in ability_formset %}
-        <h5 class="card-title text-center">能力登録</h5>
+
+        <h5 class="card-title text-center">適正ポジション登録</h5>
+        <table class="profile_table mb-4 form-image">
+          <tbody>
+          {{ formation_formset.management_form }}
+          {% for formation_form in formation_formset %}
+            <tr>
+              <th class="header">{{ formation_form.id }}</th>
+              <td class="data form_wrap form_wrap-2">{{ formation_form.formation_images }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        
+        <h5 class="card-title text-center">選手能力編集</h5>
         <table class="profile_table mb-4">
           <tbody>
+        {{ ability_formset.management_form }}
+        {% for ability_form in ability_formset %}
             <tr>
               <th class="header">オフェンスセンス</th>
               <td class="data form_wrap form_wrap-2">
@@ -103,6 +116,7 @@
                 {{ ability_form.dribble }}
               </td>
             </tr>
+            <tr>
               <th class="header">ボールキープ</th>
               <td class="data form_wrap form_wrap-2">
                 {{ ability_form.ball_keep }}
@@ -229,51 +243,96 @@
               </td>
             </tr>
             <tr>
-              <th class="header">ディフレクティング</th>
+              <th class="header">キック力</th>
               <td class="data form_wrap form_wrap-2">
-                {{ ability_form.deflectiveing }}
+                {{ ability_form.kick_power }}
               </td>
             </tr>
             <tr>
+              <th class="header">ディフレクティング</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ ability_form.deflectiveing }}
+                {{ ability_form.id }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h5 class="card-title text-center">選手特徴編集</h5>
+        <table class="profile_table mb-4 form-image">
+          <tbody>
+          {{ feature_formset.management_form }}
+          {% for feature_form in feature_formset %}
+            <tr>
               <th class="header">逆足頻度</th>
               <td class="data form_wrap form_wrap-2">
-                {{ ability_form.reverse_foot_frequency }}
+                {{ feature_form.frequency_choice }}
               </td>
             </tr>
             <tr>
               <th class="header">逆足精度</th>
               <td class="data form_wrap form_wrap-2">
-                {{ ability_form.reverse_foot_accuracy }}
+                {{ feature_form.accuracy_choice }}
               </td>
             </tr>
             <tr>
-              <th class="header">コンディション安定度</th>
+              <th class="header">コンディションの波</th>
               <td class="data form_wrap form_wrap-2">
-                {{ ability_form.condition_stability }}
+                {{ feature_form.condition_choice }}
               </td>
             </tr>
             <tr>
-              <th class="header">ケガ耐性</th>
+              <th class="header">怪我耐性</th>
               <td class="data form_wrap form_wrap-2">
-                {{ ability_form.injury_resistance }}
-                {{ ability_form.id }}
+                {{ feature_form.injury_resistance_choice }}
+                {{ feature_form.id }}
               </td>
-            </tr>
-          </tbody>
-        </table>
-        {% endfor %}
-        <h5 class="card-title text-center">フォーメーション登録</h5>
-        <table class="profile_table mb-4 form-image">
-          <tbody>
-          {{ formation_formset.management_form }}
-          {% for formation_form in formation_formset %}
-            <tr>
-              <th class="header">{{ formation_form.id }}</th>
-              <td class="data form_wrap form_wrap-2">{{ formation_form.formation_images }}</td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
+
+        <h5 class="card-title text-center">プレイヤー補正編集</h5>
+        <table class="profile_table mb-4">
+          <tbody>
+        {{ correction_formset.management_form }}
+        {% for correction_form in correction_formset %}
+            <tr>
+              <th class="header">ポジション</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ correction_form.position_correction }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ボールコントロール</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ correction_form.short_counter_correction }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ロングカウンター</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ correction_form.long_counter_correction }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">サイドアタック</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ correction_form.side_attack_correction }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ロングボール</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ correction_form.long_ball_correction }}
+                {{ correction_form.id }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
         <h5 class="card-title text-center">スキル登録</h5>
         <table class="profile_table mb-4 skill_info">
           <tbody>
@@ -286,6 +345,7 @@
             {% endfor %}
           </tbody>
         </table>
+
         <button class="btn btn-lg btn-warning btn-block" type="submit">登録する</button>
       </form>
     </div>

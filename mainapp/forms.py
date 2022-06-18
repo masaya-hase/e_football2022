@@ -1,5 +1,5 @@
 from django import forms
-from .models import Player, Skill, Ability, Formation, RarityCategory
+from .models import Player, Skill, Ability, Formation, RarityCategory, PlayerFeature, PlayerCorrection
 from django.forms import inlineformset_factory,widgets
 from django.conf import settings
 from django.core.mail import BadHeaderError, send_mail
@@ -19,7 +19,7 @@ class PlayerCreateForm(forms.ModelForm):
         exclude = ('skill',)   
 
         widgets = {
-            "new_date_field": widgets.SelectDateWidget(years=range(2021, 2030))
+            "date": widgets.SelectDateWidget(years=range(2021, 2030))
             }
 
 class SkillForm(forms.ModelForm):
@@ -52,7 +52,27 @@ class FormationForm(forms.ModelForm):
     class Meta:
         model =  Formation
         fields='__all__'
-        
+
+class PlayerFeatureForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+    
+    class Meta:
+        model =  PlayerFeature
+        fields='__all__'
+
+class PlayerCorrectionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+    
+    class Meta:
+        model =  PlayerCorrection
+        fields='__all__'
+
 # editform 
 SkillInlineFormSet = forms.inlineformset_factory(
     Player, Player.skill.through, form=SkillForm, can_delete=False
@@ -66,6 +86,13 @@ FormationFormSet = forms.inlineformset_factory(
     Player, Formation, form=FormationForm, extra=0
 )
 
+PlayerFeatureFormSet = forms.inlineformset_factory(
+    Player, PlayerFeature, form=PlayerFeatureForm, extra=0
+)
+
+PlayerCorrectionFormSet = forms.inlineformset_factory(
+    Player, PlayerCorrection, form=PlayerCorrectionForm, extra=0
+)
 # addform
 SkillInlineAddFormSet = forms.inlineformset_factory(
     Player, Player.skill.through, form=SkillForm, can_delete=False, extra=10
@@ -77,6 +104,14 @@ AbilityAddFormSet = forms.inlineformset_factory(
 
 FormationAddFormSet = forms.inlineformset_factory(
     Player, Formation, form=FormationForm, extra=1
+)
+
+PlayerFeatureAddFormSet = forms.inlineformset_factory(
+    Player, PlayerFeature, form=PlayerFeatureForm, extra=1
+)
+
+PlayerCorrectionAddFormSet = forms.inlineformset_factory(
+    Player, PlayerCorrection, form=PlayerCorrectionForm, extra=1
 )
 
 class ContactForm(forms.Form):

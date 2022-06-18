@@ -34,31 +34,32 @@
               <thead class="thead-dark">
                 <tr class="table-success">
                   <th scope="col"></th>
-                  <th scope="col" class="text-nowrap">ポジション</th>
-                  <th scope="col" class="text-nowrap" style="">選手名</th>
-                  <th scope="col" class="text-nowrap">年齢</th>
-                  <th scope="col" class="text-nowrap">初期値</th>
-                  <th scope="col" class="text-nowrap">最大値</th>
-                  <th scope="col" class="text-nowrap">所属リーグ</th>
-                  <th scope="col" class="text-nowrap">所属クラブ</th>
-                  <th scope="col" class="text-nowrap">プレイスタイル</th>
+                  <th scope="col" class="text-nowrap"></br>ポジション</th>
+                  <th scope="col" class="text-nowrap" style=""></br>選手名</th>
+                  <th scope="col" class="text-nowrap"></br>年齢</th>
+                  <th scope="col" class="text-nowrap"></br>初期値</th>
+                  <th scope="col" class="text-nowrap"></br>最大レベル</th>
+                  <th scope="col" class="text-nowrap"></br>グレード</th>
+                  <th scope="col" class="text-nowrap"></br>所属リーグ</th>
+                  <th scope="col" class="text-nowrap"></br>所属クラブ</th>
+                  <th scope="col" class="text-nowrap"></br>プレイスタイル</th>
                   <th scope="col" class="text-nowrap">オフェ</br>ンスセ</br>ンス</th>
                   <th scope="col" class="text-nowrap">ボール</br>コント</br>ロール</th>
                   <th scope="col" class="text-nowrap">ドリブ</br>ル</th>
                   <th scope="col" class="text-nowrap">ボール</br>キープ</th>
                   <th scope="col" class="text-nowrap">グラン</br>ダーパ</br>ス</th>
                   <th scope="col" class="text-nowrap">フライ</br>パス</th>
-                  <th scope="col" class="text-nowrap">決定力</th>
+                  <th scope="col" class="text-nowrap"></br>決定力</th>
                   <th scope="col" class="text-nowrap">ヘディ</br>ング</th>
                   <th scope="col" class="text-nowrap">プレー</br>スキッ</br>ク</th>
-                  <th scope="col" class="text-nowrap">カーブ</th>
+                  <th scope="col" class="text-nowrap"></br>カーブ</th>
                   <th scope="col" class="text-nowrap">スピー</br>ド</th>
-                  <th scope="col" class="text-nowrap">瞬発力</th>
+                  <th scope="col" class="text-nowrap"></br>瞬発力</th>
                   <th scope="col" class="text-nowrap">キック</br>力</th>
                   <th scope="col" class="text-nowrap">ジャン</br>プ</th>
                   <th scope="col" class="text-nowrap">フィジ</br>カルコ</br>ンタク</br>ト</th>
                   <th scope="col" class="text-nowrap">ボディ</br>コント</br>ロール</th>
-                  <th scope="col" class="text-nowrap">体力</th>
+                  <th scope="col" class="text-nowrap"></br>体力</th>
                   <th scope="col" class="text-nowrap">ディフ</br>ェンス</br>センス</th>
                   <th scope="col" class="text-nowrap">ボール</br>奪取</th>
                   <th scope="col" class="text-nowrap">アグレ</br>ッシブ</br>ネス</th>
@@ -69,8 +70,8 @@
                   <th scope="col" class="text-nowrap">ディフ</br>レクテ</br>ィング</th>
                   <th scope="col" class="text-nowrap">逆足頻</br>度</th>
                   <th scope="col" class="text-nowrap">逆足精</br>度</th>
-                  <th scope="col" class="text-nowrap">コンデ</br>ィショ</br>ン安定</br>度</th>
-                  <th scope="col" class="text-nowrap">ケガ耐</br>性</th>
+                  <th scope="col" class="text-nowrap">コンデ</br>ィショ</br>ンの波</th>
+                  <th scope="col" class="text-nowrap">怪我耐</br>性</th>
                 </tr>
               </thead>
               <tbody>
@@ -81,7 +82,8 @@
                   <td class="text-nowrap"><a href="{% url 'detail' item.pk %}">{{ item.player_name }}</a></td>
                   <td class="text-nowrap">{{ item.age }}</td>
                   <td class="text-nowrap"><span class="{{ item.initial|list_css }}">{{ item.initial }}</span></td>
-                  <td class="text-nowrap"><span class="{{ item.maximum|list_css }}">{{ item.maximum }}</span></td>
+                  <td class="text-nowrap">{{ item.level }}</td>
+                  <td class="text-nowrap">{{ item.grade_group }}</td>
                   <td class="text-nowrap">{{ item.league_group }}</td>
                   <td class="text-nowrap">{{ item.club_group }}</td>
                   <td class="text-nowrap">{{ item.playstyle_group }}</td>
@@ -111,10 +113,12 @@
                   <td class="text-nowrap"><span class="{{ ability.clearing|list_css }}">{{ ability.clearing }}</td>
                   <td class="text-nowrap"><span class="{{ ability.cobraging|list_css }}">{{ ability.cobraging }}</td>
                   <td class="text-nowrap"><span class="{{ ability.deflectiveing|list_css }}">{{ ability.deflectiveing }}</td>
-                  <td class="text-nowrap"><span class="{{ ability.reverse_foot_frequency|list_reverse_css }}">{{ ability.reverse_foot_frequency }}</td>
-                  <td class="text-nowrap"><span class="{{ ability.reverse_foot_accuracy|list_reverse_css }}">{{ ability.reverse_foot_accuracy }}</td>
-                  <td class="text-nowrap"><span class="{{ ability.condition_stability|list_condi_css }}">{{ ability.condition_stability }}</td>
-                  <td class="text-nowrap"><span class="{{ ability.injury_resistance|list_reverse_css }}">{{ ability.injury_resistance }}</td>
+                  {% endfor %}
+                  {% for feature in item.playerfeature_set.all %}
+                  <td class="text-nowrap">{{ feature.frequency_choice }}</td>
+                  <td class="text-nowrap">{{ feature.accuracy_choice }}</td>
+                  <td class="text-nowrap">{{ feature.condition_choice }}</td>
+                  <td class="text-nowrap">{{ feature.injury_resistance_choice }}</td>
                   {% endfor %}
                 </tr>
               {% endfor %}
