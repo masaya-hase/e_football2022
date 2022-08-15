@@ -137,6 +137,11 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
 # デプロイ設定
 DEBUG = False
 
