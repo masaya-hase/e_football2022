@@ -140,11 +140,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 # デプロイ設定
 DEBUG = False
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
 # ローカル用設定
 if DEBUG:
     ALLOWED_HOSTS = ['*']
