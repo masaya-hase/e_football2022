@@ -3,14 +3,21 @@ from accounts.models import CustomUser
 from accounts.forms import ProfileForm
 from django.shortcuts import render, redirect
 from allauth.account import views
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ProfileView(View):
     def get(self, request, *args, **kwargs):
-        user_data = CustomUser.objects.get(pk=1)
+        user_data = CustomUser.objects.get(pk=2)
 
         return render(request, 'accounts/profile.html', {
             'user_data': user_data,
         })
+
+    def get_queryset(self):
+        """Retern the last five published questions."""
+        logger.info('Hello world!') # テスト用のログ出力
 
 class ProfileEditView(View):
     def get(self, request, *args, **kwargs):

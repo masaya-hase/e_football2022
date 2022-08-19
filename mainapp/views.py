@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 
+
 class IndexView(TemplateView):
     template_name = "mainapp/index.html"
 

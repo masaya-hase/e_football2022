@@ -99,7 +99,7 @@ class AbilityResource(resources.ModelResource):
     
     class Meta:
         model = Ability
-        fields = ('id','player', 'offense_sense', 'ball_control', 'dribble', 'ball_keep', 'grander_pass', 'fly_pass', 'determining_power', 'heading', 'place_kick', 'curve', 'speed', 'instantaneous_power', 'kick_power', 'jumping', 'physical_contact', 'body_control', 'physical_fitness', 'defense_sense', 'take_the_ball', 'aggressiveness', 'gksense', 'catching', 'clearing', 'cobraging', 'deflectiveing')
+        fields = ('id','player', 'offense_sense', 'ball_control', 'dribble', 'ball_keep', 'grander_pass', 'fly_pass', 'determining_power', 'heading', 'place_kick', 'curve', 'speed', 'instantaneous_power', 'kick_power', 'jumping', 'physical_contact', 'body_control', 'physical_fitness', 'defense_sense', 'take_the_ball', 'aggressiveness','defensive_consciousness', 'gksense', 'catching', 'clearing', 'cobraging', 'deflectiveing')
         export_order = fields
 
 # Costモデルに統合する為にModelResourceを継承したクラスを作成
@@ -189,7 +189,7 @@ class PlayerImportAdmin(ImportExportModelAdmin):
 # ImportExportModelAdminを継承したadminクラスを作成
 class AbilityAdmin(ImportExportModelAdmin):
     ordering = ['player']
-    list_display=('player', 'offense_sense', 'ball_control', 'dribble', 'ball_keep', 'grander_pass', 'fly_pass', 'determining_power', 'heading', 'place_kick', 'curve', 'speed', 'instantaneous_power', 'kick_power', 'jumping', 'physical_contact', 'body_control', 'physical_fitness', 'defense_sense', 'take_the_ball', 'aggressiveness', 'gksense', 'catching', 'clearing', 'cobraging', 'deflectiveing')
+    list_display=('player', 'offense_sense', 'ball_control', 'dribble', 'ball_keep', 'grander_pass', 'fly_pass', 'determining_power', 'heading', 'place_kick', 'curve', 'speed', 'instantaneous_power', 'kick_power', 'jumping', 'physical_contact', 'body_control', 'physical_fitness', 'defense_sense', 'take_the_ball', 'aggressiveness','defensive_consciousness', 'gksense', 'catching', 'clearing', 'cobraging', 'deflectiveing')
 
     # resource_classにModelResourceを継承したクラスを設定
     resource_class = AbilityResource

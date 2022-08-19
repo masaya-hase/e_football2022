@@ -79,13 +79,12 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'admindatabase',
-    'USER': 'admin1',
-    'PASSWORD': 'admin1password',
+    'USER': 'admin',
+    'PASSWORD': 'adminpassword',
     'HOST': '',
     'PORT': '',
-    }
+     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -165,6 +164,37 @@ if not DEBUG:
     EMAIL_HOST_USER = env('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = True
+ 
+    LOG_BASE_DIR = os.path.join("/var", "log", "app")
+    LOGGING = {
+            "version": 1,
+            "disable_existing_loggers": False,
+            "formatters": {"simple": {"format": "%(asctime)s [%(levelname)s] %(message)s"}},
+            "handlers": {
+                "info": {
+                    "level": "INFO",
+                    "class": "logging.FileHandler",
+                    "filename": os.path.join(LOG_BASE_DIR, "info.log"),
+                    "formatter": "simple",
+                    },
+                "warning": {
+                    "level": "WARNING",
+                    "class": "logging.FileHandler",
+                    "filename": os.path.join(LOG_BASE_DIR, "warning.log"),
+                    "formatter": "simple",
+                    },
+                "error": {
+                    "level": "ERROR",
+                    "class": "logging.FileHandler",
+                    "filename": os.path.join(LOG_BASE_DIR, "error.log"),
+                    "formatter": "simple",
+                    },
+                },
+            "root": {
+                "handlers": ["info", "warning", "error"],
+                "level": "INFO",
+                },
+            }
 
     STATIC_ROOT = '/usr/share/nginx/html/static'
     MEDIA_ROOT = '/usr/share/nginx/html/media'

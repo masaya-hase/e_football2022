@@ -109,6 +109,7 @@ class Ability(models.Model):
     defense_sense = models.IntegerField('ディフェンスセンス', blank=True, null=True)
     take_the_ball = models.IntegerField('ボール奪取', blank=True, null=True)
     aggressiveness = models.IntegerField('アグレッシブネス', blank=True, null=True)
+    defensive_consciousness = models.IntegerField('守備意識', blank=True, null=True)
     gksense = models.IntegerField('GKセンス', blank=True, null=True)
     catching = models.IntegerField('キャッチング', blank=True, null=True)
     clearing = models.IntegerField('クリアリング', blank=True, null=True)
@@ -129,8 +130,9 @@ class PlayerFeature(models.Model):
         blank=True, null=True,
         on_delete=models.SET_NULL
         )
+
     frequency_choice = models.ForeignKey(ReverseCategory, verbose_name='逆足頻度' ,on_delete=models.PROTECT, null=True, related_name="frequency_item")
-    accuracy_choice  = models.ForeignKey(ReverseCategory, verbose_name='逆足精度' ,on_delete=models.PROTECT, null=True, related_name="accuracy_item")
+    accuracy_choice = models.ForeignKey(ReverseCategory, verbose_name='逆足精度' ,on_delete=models.PROTECT, null=True, related_name="accuracy_item")
     condition_choice = models.ForeignKey(ConditionCategory, verbose_name='コンディションの波' ,on_delete=models.PROTECT, null=True)
     injury_resistance_choice = models.ForeignKey(InjuryCategory, verbose_name='怪我耐性' ,on_delete=models.PROTECT, null=True)
 
