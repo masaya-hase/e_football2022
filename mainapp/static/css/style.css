@@ -637,6 +637,33 @@ text-align: center;
 font-weight: bold;
 }
 
+.position{
+  background-color: mediumblue;
+  width: 100%;
+}
+
+.position td{
+  border: 3px solid #171f2c;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.side_posi{
+  margin-bottom: 0px;
+}
+
+.center_posi{
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+
+
 /* profile.html */
 a {
 color: black;
@@ -667,7 +694,7 @@ color: orange;
 .list_table{
   font-size: smaller;
 }
-.list_table th:nth-child(n+10){
+.list_table th:nth-child(n+11){
   font-size: 9px;
 }
 .table-bordered td {

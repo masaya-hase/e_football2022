@@ -7,14 +7,14 @@
 {% if rarity_key or position_key or leaguename_key %} {{ rarity_key }}{{ position_key }}{{ leaguename_key }} 選手一覧{% endif %}
 {% if freeword or select %}選手検索結果{% endif %}
 </title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+{% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css"> {% endcomment %}
 {% endblock head%} 
 
 
 
 {% block header %}
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
-{% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css"> {% endcomment %}
 {% endblock header%} 
 
 {% block content %}
@@ -64,7 +64,7 @@
                   <th scope="col" class="text-nowrap">ボール</br>奪取</th>
                   <th scope="col" class="text-nowrap">アグレ</br>ッシブ</br>ネス</th>
                   <th scope="col" class="text-nowrap">守備意</br>識</th>
-		  <th scope="col" class="text-nowrap">GKセ</br>ンス</th>
+		              <th scope="col" class="text-nowrap">GKセ</br>ンス</th>
                   <th scope="col" class="text-nowrap">キャッ</br>チング</th>
                   <th scope="col" class="text-nowrap">クリア</br>リング</th>
                   <th scope="col" class="text-nowrap">コブラ</br>シング</th>
@@ -110,7 +110,7 @@
                   <td class="text-nowrap"><span class="{{ ability.take_the_ball|list_css }}">{{ ability.take_the_ball }}</td>
                   <td class="text-nowrap"><span class="{{ ability.aggressiveness|list_css }}">{{ ability.aggressiveness }}</td>
                   <td class="text-nowrap"><span class="{{ ability.defensive_consciousness|list_css }}">{{ ability.defensive_consciousness }}</td>
-		  <td class="text-nowrap"><span class="{{ ability.gksense|list_css }}">{{ ability.gksense }}</td>
+		              <td class="text-nowrap"><span class="{{ ability.gksense|list_css }}">{{ ability.gksense }}</td>
                   <td class="text-nowrap"><span class="{{ ability.catching|list_css }}">{{ ability.catching }}</td>
                   <td class="text-nowrap"><span class="{{ ability.clearing|list_css }}">{{ ability.clearing }}</td>
                   <td class="text-nowrap"><span class="{{ ability.cobraging|list_css }}">{{ ability.cobraging }}</td>

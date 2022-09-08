@@ -92,24 +92,69 @@
           </div>
         </div>
       </div>  
-    
       <div class="col-xs-8">
       <div class="card card-edit">
         <div class="card card-header alert-info text-center h4 py-md-3">
           適正ポジション
         </div>
         <div class="card-body">
-          <td class="data">
-          {% for formation in formation %}
-          {% if formation.formation_images %}
-              <img
-                src="{{ formation.formation_images.url }}"
-                alt="適正ポジション"
-                class="rounded mx-auto d-block"
-              />
-              {% endif %}
+          <table class="position">
+          {% for formationcolor in formationcolor %}
+						<tbody><tr>
+						<td class="a" style="background-color: {{ formationcolor.lwg_position_color }}; opacity: {{ formationcolor.lwg_opacity }};"rowspan="2">
+						<p class="side_posi">LWG</p>
+						</td>
+						<td class="a" style="background-color: {{ formationcolor.cf_position_color }}; opacity: {{ formationcolor.cf_opacity }};">
+						<p class="center_posi">CF</p>
+						</td> 
+						<td class="a" style="background-color: {{ formationcolor.rwg_position_color }}; opacity: {{ formationcolor.rwg_opacity }};" rowspan="2">
+						<p class="side_posi">RWG</p>
+						</td>
+						</tr>
+						<tr>
+						<td class="b" style="background-color: {{ formationcolor.st_position_color }}; opacity: {{ formationcolor.st_opacity }};">
+						<p class="center_posi">ST</p>
+						</td>
+						</tr>
+						<tr>
+						<td class="a" style="background-color: {{ formationcolor.lmf_position_color }}; opacity: {{ formationcolor.lmf_opacity }};" rowspan="3">
+						<p class="side_posi">LMF</p>
+						</td>
+						<td class="b" style="background-color: {{ formationcolor.omf_position_color }}; opacity: {{ formationcolor.omf_opacity }};">
+						<p class="center_posi">OMF</p>
+						</td>
+						<td class="a" style="background-color: {{ formationcolor.rmf_position_color }}; opacity: {{ formationcolor.rmf_opacity }};" rowspan="3">
+						<p class="side_posi">RMF</p>
+						</td>
+						</tr>
+						<tr>
+						<td class="b" style="background-color: {{ formationcolor.cmf_position_color }}; opacity: {{ formationcolor.cmf_opacity }};">
+						<p class="center_posi">CMF</p>
+						</td>
+						</tr>
+						<tr>
+						<td class="c" style="background-color: {{ formationcolor.dmf_position_color }}; opacity: {{ formationcolor.dmf_opacity }};">
+						<p class="center_posi">DMF</p>
+						</td>
+						</tr><tr>
+						<td class="c" style="background-color: {{ formationcolor.lsb_position_color }}; opacity: {{ formationcolor.lsb_opacity }};">
+						<p class="side_posi">LSB</p>
+						</td>
+						<td class="c" style="background-color: {{ formationcolor.cb_position_color }}; opacity: {{ formationcolor.cb_opacity }};">
+						<p class="center_posi">CB</p>
+						</td>
+						<td class="c" style="background-color: {{ formationcolor.rsb_position_color }}; opacity: {{ formationcolor.rsb_opacity }};">
+						<p class="side_posi">RSB</p>
+						</td> 
+						</tr><tr>
+						<td>&nbsp;</td>
+						<td class="c" style="background-color: {{ formationcolor.gk_position_color }}; opacity: {{ formationcolor.gk_opacity }};">
+						<p class="center_posi">GK</p>
+						</td>
+						<td>&nbsp;</td>
+						</tr><tr></tr>
             {% endfor %}
-          </td>
+						</tbody></table>
         </div>
       </div>
       </div>
@@ -248,14 +293,14 @@
                   <td>
                     <span class="{{ ability.aggressiveness|of_df_fig_css }}">{{ ability.aggressiveness }}</span>
                   </td>
-              　</tr>
-		<tr>
+                </tr>
+		            <tr>
                   <th scope="row">守備意識</th>
                   <td>
                     <span class="{{ ability.defensive_consciousness|of_df_fig_css }}">{{ ability.defensive_consciousness }}</span>
                   </td>
                 </tr>
-		<tr>
+		            <tr>
                   <th scope="row">GKセンス</th>
                   <td>
                   <span class="{{ ability.gksense|of_df_fig_css }}">{{ ability.gksense }}</span>

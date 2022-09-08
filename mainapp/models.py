@@ -116,13 +116,43 @@ class Ability(models.Model):
     cobraging = models.IntegerField('コブラシング', blank=True, null=True)
     deflectiveing = models.IntegerField('ディフレクティング', blank=True, null=True)
 
-class Formation(models.Model):
+class ColorCategory(models.Model):
+    color = models.CharField('カラー', max_length=30, blank=True, null=True)
+    def __str__(self):
+        return self.color
+
+class FormationColor(models.Model):
     player = models.ForeignKey(
         Player, verbose_name='紐づき選手',
         blank=True, null=True,
         on_delete=models.SET_NULL
         )
-    formation_images = models.ImageField(upload_to='images', verbose_name='フォーメーション画像', null=True, blank=True)
+    lwg_position_color = models.ForeignKey(ColorCategory, verbose_name='LWGポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="lwg_position")
+    lwg_opacity = models.FloatField('LWG透明度', blank=True, null=True)
+    cf_position_color = models.ForeignKey(ColorCategory, verbose_name='CFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="cf_position")
+    cf_opacity = models.FloatField('CF透明度', blank=True, null=True)
+    st_position_color = models.ForeignKey(ColorCategory, verbose_name='STポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="st_position")
+    st_opacity = models.FloatField('ST透明度', blank=True, null=True)
+    rwg_position_color = models.ForeignKey(ColorCategory, verbose_name='RWGポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="rwg_position")
+    rwg_opacity = models.FloatField('RWG透明度', blank=True, null=True)
+    lmf_position_color = models.ForeignKey(ColorCategory, verbose_name='LMFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="lmf_position")
+    lmf_opacity = models.FloatField('LMF透明度', blank=True, null=True)
+    omf_position_color = models.ForeignKey(ColorCategory, verbose_name='OMFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="omf_position")
+    omf_opacity = models.FloatField('OMF透明度', blank=True, null=True)
+    cmf_position_color = models.ForeignKey(ColorCategory, verbose_name='CMFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="cmf_position")
+    cmf_opacity = models.FloatField('CMF透明度', blank=True, null=True)
+    dmf_position_color = models.ForeignKey(ColorCategory, verbose_name='DMFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="dmf_position")
+    dmf_opacity = models.FloatField('DMF透明度', blank=True, null=True)
+    rmf_position_color = models.ForeignKey(ColorCategory, verbose_name='RMFポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="rmf_position")
+    rmf_opacity = models.FloatField('RMF透明度', blank=True, null=True)
+    lsb_position_color = models.ForeignKey(ColorCategory, verbose_name='LSBポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="lsb_position")
+    lsb_opacity = models.FloatField('LSB透明度', blank=True, null=True)
+    cb_position_color = models.ForeignKey(ColorCategory, verbose_name='CBポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="cb_position")
+    cb_opacity = models.FloatField('CB透明度', blank=True, null=True)
+    rsb_position_color = models.ForeignKey(ColorCategory, verbose_name='RSBポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="rsb_position")
+    rsb_opacity = models.FloatField('RSB透明度', blank=True, null=True)
+    gk_position_color = models.ForeignKey(ColorCategory, verbose_name='GKポジションカラー' ,on_delete=models.PROTECT, null=True, related_name="gk_position")
+    gk_opacity = models.FloatField('GK透明度', blank=True, null=True)
 
 class PlayerFeature(models.Model):
     player = models.ForeignKey(

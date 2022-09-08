@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
+FILE_UPLOAD_PERMISSIONS = 0o644
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
@@ -164,6 +164,9 @@ if not DEBUG:
     EMAIL_HOST_USER = env('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = True
+
+    STATIC_ROOT = '/usr/share/nginx/html/static'
+    MEDIA_ROOT = '/usr/share/nginx/html/media'
  
     LOG_BASE_DIR = os.path.join("/var", "log", "app")
     LOGGING = {
@@ -196,8 +199,6 @@ if not DEBUG:
                 },
             }
 
-    STATIC_ROOT = '/usr/share/nginx/html/static'
-    MEDIA_ROOT = '/usr/share/nginx/html/media'
 
 # import logging
 

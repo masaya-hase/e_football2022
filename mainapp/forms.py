@@ -1,5 +1,5 @@
 from django import forms
-from .models import Player, Skill, Ability, Formation, RarityCategory, PlayerFeature, PlayerCorrection
+from .models import FormationColor, Player, Skill, Ability, RarityCategory, PlayerFeature, PlayerCorrection
 from django.forms import inlineformset_factory,widgets
 from django.conf import settings
 from django.core.mail import BadHeaderError, send_mail
@@ -43,14 +43,14 @@ class AbilityForm(forms.ModelForm):
         model =  Ability
         fields='__all__'
 
-class FormationForm(forms.ModelForm):
+class FormationColorForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
     
     class Meta:
-        model =  Formation
+        model =  FormationColor
         fields='__all__'
 
 class PlayerFeatureForm(forms.ModelForm):
@@ -82,8 +82,8 @@ AbilityFormSet = forms.inlineformset_factory(
     Player, Ability, form=AbilityForm, extra=0
 )
 
-FormationFormSet = forms.inlineformset_factory(
-    Player, Formation, form=FormationForm, extra=0
+FormationColorFormSet = forms.inlineformset_factory(
+    Player, FormationColor, form=FormationColorForm, extra=0
 )
 
 PlayerFeatureFormSet = forms.inlineformset_factory(
@@ -102,8 +102,8 @@ AbilityAddFormSet = forms.inlineformset_factory(
     Player, Ability, form=AbilityForm, extra=1
 )
 
-FormationAddFormSet = forms.inlineformset_factory(
-    Player, Formation, form=FormationForm, extra=1
+FormationColorAddFormSet = forms.inlineformset_factory(
+    Player, FormationColor, form=FormationColorForm, extra=1
 )
 
 PlayerFeatureAddFormSet = forms.inlineformset_factory(

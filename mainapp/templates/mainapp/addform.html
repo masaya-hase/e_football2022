@@ -80,14 +80,166 @@
           </tbody>
         </table>
 
-        <h5 class="card-title text-center">適正ポジション登録</h5>
-        <table class="profile_table mb-4 form-image">
+        <h5 class="card-title text-center">適正ポジション編集</h5>
+        <table class="profile_table mb-4">
           <tbody>
-          {{ formation_formset.management_form }}
-          {% for formation_form in formation_formset %}
+        {{ formationcolor_formset.management_form }}
+        {% for formationcolor_form in formationcolor_formset %}
             <tr>
-              <th class="header">{{ formation_form.id }}</th>
-              <td class="data form_wrap form_wrap-2">{{ formation_form.formation_images }}</td>
+              <th class="header">LWGポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lwg_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">LWG透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lwg_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">STポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.st_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">ST透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.st_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RWGポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rwg_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RWG透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rwg_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">LMFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lmf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">LMF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lmf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">OMFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.omf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">OMF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.omf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CMFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cmf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CMF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cmf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">DMFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.dmf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">DMF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.dmf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RMFポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rmf_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RMF透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rmf_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">LSBポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lsb_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">LSB透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.lsb_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CBポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cb_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">CB透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.cb_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RSBポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rsb_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">RSB透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.rsb_opacity }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">GKポジションカラー</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.gk_position_color }}
+              </td>
+            </tr>
+            <tr>
+              <th class="header">GK透明度</th>
+              <td class="data form_wrap form_wrap-2">
+                {{ formationcolor_form.gk_opacity }}
+              </td>
             </tr>
           {% endfor %}
           </tbody>

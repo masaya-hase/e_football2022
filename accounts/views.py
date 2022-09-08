@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class ProfileView(View):
     def get(self, request, *args, **kwargs):
-        user_data = CustomUser.objects.get(pk=2)
+        user_data = CustomUser.objects.get(pk=1)
 
         return render(request, 'accounts/profile.html', {
             'user_data': user_data,

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Player, Formation, Ability, RarityCategory, Skill, PositionCategory, LeagueCategory, PlayerFeature, PlayerCorrection
-from .forms import PlayerCreateForm, AbilityFormSet, SkillInlineFormSet, FormationFormSet, SkillInlineAddFormSet, AbilityAddFormSet, FormationAddFormSet, ContactForm, PlayerFeatureFormSet, PlayerCorrectionFormSet, PlayerFeatureAddFormSet, PlayerCorrectionAddFormSet
+from .models import FormationColor, Player, Ability, RarityCategory, Skill, PositionCategory, LeagueCategory, PlayerFeature, PlayerCorrection
+from .forms import FormationColorAddFormSet, FormationColorFormSet, PlayerCreateForm, AbilityFormSet, SkillInlineFormSet, SkillInlineAddFormSet, AbilityAddFormSet, ContactForm, PlayerFeatureFormSet, PlayerCorrectionFormSet, PlayerFeatureAddFormSet, PlayerCorrectionAddFormSet
 from django.views import generic
 import logging
 from django.db.models import Q
@@ -18,11 +18,11 @@ class IndexView(TemplateView):
 
 def detailview(request, pk):
     player = Player.objects.filter(pk=pk)
-    ability = Ability.objects.filter(pk=pk)
-    formation = Formation.objects.filter(pk=pk)
-    feature = PlayerFeature.objects.filter(pk=pk)
-    correction = PlayerCorrection.objects.filter(pk=pk)
-    return render(request, 'mainapp/detail.html', {'player': player, 'ability': ability, 'formation': formation, 'feature': feature, 'correction': correction})
+    ability = Ability.objects.filter(player=pk)
+    feature = PlayerFeature.objects.filter(player=pk)
+    correction = PlayerCorrection.objects.filter(player=pk)
+    formationcolor = FormationColor.objects.filter(player=pk)
+    return render(request, 'mainapp/detail.html', {'player': player, 'ability': ability, 'formationcolor': formationcolor, 'feature': feature, 'correction': correction})
 
 def addformview(request):
     form = PlayerCreateForm(request.POST or None, files=request.FILES)
@@ -32,15 +32,14 @@ def addformview(request):
         skill_formset = SkillInlineAddFormSet(
             request.POST or None, instance=player)
         ability_formset = AbilityAddFormSet(request.POST, instance=player)
-        formation_formset = FormationAddFormSet(
-            request.POST, files=request.FILES, instance=player)  # 増えた
         feature_formset = PlayerFeatureAddFormSet(request.POST, instance=player)
         correction_formset = PlayerCorrectionAddFormSet(request.POST, instance=player)
-        if skill_formset.is_valid() and ability_formset.is_valid() and formation_formset.is_valid() and feature_formset.is_valid() and correction_formset.is_valid():  # image_formset.is_valid()が増えた
+        formationcolor_formset = FormationColorAddFormSet(request.POST, instance=player)
+        if skill_formset.is_valid() and ability_formset.is_valid() and formationcolor_formset.is_valid() and feature_formset.is_valid() and correction_formset.is_valid():  # image_formset.is_valid()が増えた
             player.save()
             skill_formset.save()
             ability_formset.save()
-            formation_formset.save()  # 増えた
+            formationcolor_formset.save()  # 増えた
             feature_formset.save()  # 増えた
             correction_formset.save()  # 増えた
             return redirect('index')
@@ -49,7 +48,7 @@ def addformview(request):
         else:
             context['skill_formset'] = skill_formset
             context['ability_formset'] = ability_formset
-            context['formation_formset'] = formation_formset  # 増えた
+            context['formationcolor_formset'] = formationcolor_formset  # 増えた
             context['feature_formset'] = feature_formset  # 増えた
             context['correction_formset'] = correction_formset  # 増えた
 
@@ -58,7 +57,7 @@ def addformview(request):
         # 空のformsetをテンプレートへ渡す
         context['skill_formset'] = SkillInlineAddFormSet()
         context['ability_formset'] = AbilityAddFormSet()
-        context['formation_formset'] = FormationAddFormSet()  # 増えた
+        context['formationcolor_formset'] = FormationColorAddFormSet()  # 増えた
         context['feature_formset'] = PlayerFeatureAddFormSet()  # 増えた
         context['correction_formset'] = PlayerCorrectionAddFormSet()  # 増えた
 
@@ -71,15 +70,14 @@ def editformview(request, pk):
                             files=request.FILES or None, instance=player)
     skillformset = SkillInlineFormSet(request.POST or None, instance=player)
     abilityformset = AbilityFormSet(request.POST or None, instance=player)
-    formationformset = FormationFormSet(
-        request.POST or None, files=request.FILES or None, instance=player)
     featureformset = PlayerFeatureFormSet(request.POST or None, instance=player)
     correctionformset = PlayerCorrectionFormSet(request.POST or None, instance=player)
-    if request.method == 'POST' and form.is_valid() and skillformset.is_valid() and abilityformset.is_valid() and formationformset.is_valid() and featureformset.is_valid() and correctionformset.is_valid():
+    formationcolorformset = FormationColorFormSet(request.POST or None, instance=player)
+    if request.method == 'POST' and form.is_valid() and skillformset.is_valid() and abilityformset.is_valid() and formationcolorformset.is_valid() and featureformset.is_valid() and correctionformset.is_valid():
         form.save()
         skillformset.save()
         abilityformset.save()
-        formationformset.save()
+        formationcolorformset.save()
         featureformset.save()
         correctionformset.save()
         return redirect('index')
@@ -89,7 +87,7 @@ def editformview(request, pk):
         'skillformset': skillformset,
         'abilityformset': abilityformset,
         'pk': pk,
-        'formationformset': formationformset,
+        'formationcolorformset': formationcolorformset,
         'featureformset': featureformset,
         'correctionformset': correctionformset,
     }
@@ -262,8 +260,8 @@ def weekly_trend_list(request):
 def weekly_features_list(request):
     context = {}
 
-    date_list = Player.objects.filter(rarity_group=4).values_list('date', flat=True).first()
-    player_list = Player.objects.filter(rarity_group=4 , date=date_list)
+    date_list = Player.objects.filter(rarity_group=2).values_list('date', flat=True).first()
+    player_list = Player.objects.filter(rarity_group=2 , date=date_list)
     
     paginator = Paginator(player_list, 10)
     page_number = request.GET.get('page')
@@ -276,8 +274,8 @@ def weekly_features_list(request):
 def weekly_standard_list(request):
     context = {}
 
-    date_list = Player.objects.filter(rarity_group=2).values_list('date', flat=True).first()
-    player_list = Player.objects.filter(rarity_group=2 , date=date_list)
+    date_list = Player.objects.filter(rarity_group=4).values_list('date', flat=True).first()
+    player_list = Player.objects.filter(rarity_group=4 , date=date_list)
 
     paginator = Paginator(player_list, 10)
     page_number = request.GET.get('page')
