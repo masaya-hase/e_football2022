@@ -15,7 +15,7 @@
             <div class="col-xl-10">
               <div class="text-center text-lg-start">
                 <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">Player Infomation</p>
-                <h1 class="display-3 fw-bold text-shadow">e-football2022 Player Site</h1>
+                <h1 class="display-3 fw-bold text-shadow">e-football2023 Player Site</h1>
               </div>
               <div class="search-bar mt-5 p-3 p-lg-1 ps-lg-4">
                 <form action="{% url 'search' %}" method="GET" novalidate="novalidate">
@@ -61,8 +61,12 @@
               <p class="card-text">最新の選手情報！</p>
             </div>
             <div class="card cardclass">
-              <a href="{% url 'weekly_standard' %}" class="img_wrap"><img src="{% static 'img/standard.png' %}"  class="card-img-top cardclass" alt="最新トレンド" alt="TAG index" border="0"></a>
-              <p class="card-text">最新の追加選手情報！</p>
+              <a href="{% url 'weekly_highlight' %}" class="img_wrap"><img src="{% static 'img/highlight.png' %}"  class="card-img-top cardclass" alt="最新ハイライト" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の選手情報！</p>
+            </div>
+            <div class="card cardclass">
+              <a href="{% url 'weekly_epic' %}" class="img_wrap"><img src="{% static 'img/epic.png' %}"  class="card-img-top cardclass" alt="最新エピック" alt="TAG index" border="0"></a>
+              <p class="card-text">最新の選手情報！</p>
             </div>
           </div>
         </div>

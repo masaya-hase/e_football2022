@@ -1,6 +1,6 @@
 from django.urls import path
 from mainapp import views
-from .views import detailview, addformview, editformview, RarityCategoryView, SearchList, ContactFormView, ContactResultView, weekly_legenddary_list, weekly_trend_list, weekly_features_list, weekly_standard_list
+from .views import detailview, addformview, editformview, RarityCategoryView, SearchList, ContactFormView, ContactResultView, weekly_legenddary_list, weekly_trend_list, weekly_features_list, weekly_standard_list, weekly_highlight_list, weekly_epic_list
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -17,4 +17,6 @@ urlpatterns = [
     path('weekly_trend/', weekly_trend_list, name='weekly_trend'),
     path('weekly_features/', weekly_features_list, name='weekly_features'),
     path('weekly_standard/', weekly_standard_list, name='weekly_standard'),
+    path('weekly_highlight/', weekly_highlight_list, name='weekly_highlight'),
+    path('weekly_epic/', weekly_epic_list, name='weekly_epic'),
 ]

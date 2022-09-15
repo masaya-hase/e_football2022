@@ -284,3 +284,31 @@ def weekly_standard_list(request):
     context['page_obj'] = page_obj
 
     return render(request, 'mainapp/near_standard.html' , context)
+
+def weekly_highlight_list(request):
+    context = {}
+
+    date_list = Player.objects.filter(rarity_group=5).values_list('date', flat=True).first()
+    player_list = Player.objects.filter(rarity_group=5 , date=date_list)
+
+    paginator = Paginator(player_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context['page_obj'] = page_obj
+
+    return render(request, 'mainapp/near_highlight.html' , context)
+
+def weekly_epic_list(request):
+    context = {}
+
+    date_list = Player.objects.filter(rarity_group=6).values_list('date', flat=True).first()
+    player_list = Player.objects.filter(rarity_group=6 , date=date_list)
+
+    paginator = Paginator(player_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context['page_obj'] = page_obj
+
+    return render(request, 'mainapp/near_epic.html' , context)
